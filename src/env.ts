@@ -1,12 +1,18 @@
 import * as dotenv from "dotenv";
 import { createPrivateKey } from "crypto";
 import chalk from "chalk";
+import * as fs from "fs";
 
 dotenv.config();
 
+const privateKeyPath = process.env.PRIVATE_KEY_PATH;
+
+// This reads the contents private key file.
+const privateKey = fs.readFileSync(privateKeyPath!, "utf8");
+
 export const env = {
   GITHUB_APP_ID: process.env.GITHUB_APP_ID,
-  GITHUB_PRIVATE_KEY: process.env.GITHUB_PRIVATE_KEY,
+  GITHUB_PRIVATE_KEY: privateKey,
   GITHUB_WEBHOOK_SECRET: process.env.GITHUB_WEBHOOK_SECRET,
   GROQ_API_KEY: process.env.GROQ_API_KEY,
 } as const;
